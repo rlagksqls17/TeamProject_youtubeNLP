@@ -134,7 +134,7 @@ max_grad_norm = 1
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv('./fr_classification_df.csv')
+raw_df = pd.read_csv("/피드백라벨링.csv")
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)
@@ -189,5 +189,7 @@ for e in range(num_epochs):
     
     print("epoch {} train acc {}".format(e+1, train_acc / (batch_id+1)))
 
+    
+
 # saving the model
-torch.save(model, './first_classifier')
+torch.save(model, './feedback_classifier')

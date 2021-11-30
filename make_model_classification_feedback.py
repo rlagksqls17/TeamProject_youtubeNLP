@@ -23,7 +23,7 @@ from tqdm import tqdm_notebook
 # KoBERT 입력 데이터로 만들기
 # 출처: https://velog.io/@seolini43/KOBERT%EB%A1%9C-%EB%8B%A4%EC%A4%91-%EB%B6%84%EB%A5%98-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%ACColab
 # KoBERT모델의 입력으로 들어갈 수 있는 형태가 되도록 토큰화, 정수 인코딩, 패딩 등을 해주는 과정
-class BERTDataset(Dataset):
+class BERTDataset():
     def __init__(self, dataset, sent_idx, label_idx, bert_tokenizer, vocab, max_len, pad, pair):
         transform = nlp.data.BERTSentenceTransform(
             bert_tokenizer, max_seq_length=max_len, vocab=vocab, pad=pad, pair=pair)
@@ -134,7 +134,7 @@ max_grad_norm = 1
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv('경로 수정 / fr_classification_df.csv')
+raw_df = pd.read_csv('./fr_classification_df.csv')
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)
@@ -190,4 +190,4 @@ for e in range(num_epochs):
     print("epoch {} train acc {}".format(e+1, train_acc / (batch_id+1)))
 
 # saving the model
-torch.save(model, '경로 수정 / first_classifier')
+torch.save(model, './first_classifier')

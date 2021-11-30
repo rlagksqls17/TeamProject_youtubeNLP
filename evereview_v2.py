@@ -1,4 +1,14 @@
+import torch
+from torch import nn
+
+import numpy as np
+import pandas as pd
+import gluonnlp as nlp
+
 from googleapiclient.discovery import build  
+from kobert.pytorch_kobert import get_kobert_model
+from kobert_tokenizer import KoBERTTokenizer
+
 
 
 class review_etl:
@@ -74,6 +84,104 @@ class review_etl:
             return comment_lists
 
 
+class kobert_feedback:
+    def __init__(self):
+        self.device = torch.device("cuda:0")
+        self.tokenizer = KoBERTTokenizer.from_pretrained('skt/kobert-base-v1')
+        self.tok = self.tokenizer.tokenize
+        self.bertmodel, self.vocab = get_kobert_model('skt/kobert-base-v1', self.tokenizer.vocab_file)
+        
+        self.batch_size = 64
+        self.max_len = 64 
+
+    def predict(self, input_data):
+
+        predict_data = []
+        classifier_model = torch.load('./first_classifier')
+        count = 0
+
+        for idx, i in enumerate(input_data):
+            print(count)
+            count += 1
+
+            i_result = []
+            i_result.append(i)
+
+            data = [i, '0']
+            dataset_another = [data]
+
+            another_test = BERTDataset(dataset_another, 0, 1, self.tok, self.vocab, self.max_len, True, False)
+            input_dataloader = torch.utils.data.DataLoader(another_test, batch_size=self.batch_size, num_workers=5)
+
+            classifier_model.eval()
+
+            for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(input_dataloader):
+                token_ids = token_ids.long().to(self.device)
+                segment_ids = segment_ids.long().to(self.device)
+
+                valid_length = valid_length
+                label = label.long().to(self.device)
+                out = classifier_model(token_ids, valid_length, segment_ids)
+
+                for index in out:
+                    logits = index
+                    logits = logits.detach().cpu().numpy()
+
+                    if np.argmax(logits) == 0:
+                        i_result.append("피드백")
+                    elif np.argmax(logits) == 1:
+                        i_result.append("컨텐츠 요구")
+
+            predict_data.append(i_result)
+
+        return predict_data
+
+
+class BERTDataset:
+    def __init__(self, dataset, sent_idx, label_idx, bert_tokenizer, vocab, max_len, pad, pair):
+        transform = nlp.data.BERTSentenceTransform(
+            bert_tokenizer, max_seq_length=max_len, vocab=vocab, pad=pad, pair=pair)
+        
+        self.sentences = [transform([i[sent_idx]]) for i in dataset]
+        self.labels = [np.int32(i[label_idx]) for i in dataset]
+    
+    def __getitem__(self, i):
+        return (self.sentences[i] + (self.labels[i], ))
+    
+    def __len__(self):
+        return (len(self.labels))
+
+
+class BERTClassifier(nn.Module):
+    def __init__(self,
+                 bert,
+                 hidden_size = 768,
+                 num_classes=2, ## 클래스 수 조정: 컨텐츠 요구와 피드백으로 나눌거니 2개
+                 dr_rate=None,
+                 params=None):
+        super(BERTClassifier, self).__init__()
+        self.bert = bert
+        self.dr_rate = dr_rate
+
+        self.classifier = nn.Linear(hidden_size, num_classes)
+        if dr_rate:
+            self.dropout = nn.Dropout(p=dr_rate)
+    
+    def gen_attention_mask(self, token_ids, valid_length):
+        attention_mask = torch.zeros_like(token_ids)
+        for i, v in enumerate(valid_length):
+            attention_mask[i][:v] = 1
+            return attention_mask.float()
+    
+    def forward(self, token_ids, valid_length, segment_ids):
+        attention_mask = self.gen_attention_mask(token_ids, valid_length)
+
+        _, pooler = self.bert(input_ids = token_ids, token_type_ids = segment_ids.long(), attention_mask = attention_mask.float().to(token_ids.device), return_dict=False)
+        if self.dr_rate:
+            out = self.dropout(pooler)
+            
+        return self.classifier(out)
+
 
 
 # 객체 생성
@@ -83,12 +191,11 @@ etl = review_etl()
 input_comments = etl.extract(["Mh-ip0PxJK0"]) 
 input_data = etl.transform(data=input_comments)
 
-
-
 # kobert 모델 예측하고 데이터로 저장
+kobert = kobert_feedback()
 predict_data = kobert.predict(input_data)
 
 # 예측이 되고 나면 예측결과를 기존의 수집 정보 (작성자 닉네임, 좋아요 수 등)에 추가
 contents_or_feedback = pd.DataFrame(input_comments, columns=['textDisplay', 'textOriginal', 'authorDisplayName', 'publishedAt', 'likeCount', 'authorProfileImageUrl'])
 contents_or_feedback['contents_or_feedback'] = [a[1] for a in predict_data]
-contents_or_feedback
+contents_or_feedback.to_csv('./predict1.csv')

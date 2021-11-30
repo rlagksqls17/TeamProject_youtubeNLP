@@ -84,7 +84,7 @@ class review_etl:
             return comment_lists
 
 
-class kobert_feedback:
+class kobert_classification:
     def __init__(self):
         self.device = torch.device("cuda:0")
         self.tokenizer = KoBERTTokenizer.from_pretrained('skt/kobert-base-v1')
@@ -94,43 +94,79 @@ class kobert_feedback:
         self.batch_size = 64
         self.max_len = 64 
 
+
     def predict(self, input_data):
 
-        predict_data = []
-        classifier_model = torch.load('./first_classifier')
-        count = 0
+        predict_data = []  # return
+        count = 0  # 실행 확인용
+        
+        # 컨텐츠 피드백 분류 모델, 긍부정 분류모델 불러옴
+        feedback_classifier = torch.load('./feedback_classifier')
+        goodbad_classifier = torch.load('./goodbad_classifier')
 
         for idx, i in enumerate(input_data):
             print(count)
             count += 1
-
             i_result = []
             i_result.append(i)
 
+            # 모델에 들어갈 데이터
             data = [i, '0']
-            dataset_another = [data]
+            dataset_feedback = [data]
+            feedback_test = BERTDataset(dataset_feedback, 0, 1, self.tok, self.vocab, self.max_len, True, False)
+            feedback_dataloader = torch.utils.data.DataLoader(feedback_test, batch_size=self.batch_size, num_workers=5)
+            feedback_classifier.eval()
 
-            another_test = BERTDataset(dataset_another, 0, 1, self.tok, self.vocab, self.max_len, True, False)
-            input_dataloader = torch.utils.data.DataLoader(another_test, batch_size=self.batch_size, num_workers=5)
+            for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(feedback_dataloader):
+                
+                # 모델 파라미터
+                feedback_token = token_ids.long().to(self.device)
+                feedback_segment = segment_ids.long().to(self.device)
+                feedback_valid = valid_length
+                feedback_label = label.long().to(self.device)
 
-            classifier_model.eval()
-
-            for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(input_dataloader):
-                token_ids = token_ids.long().to(self.device)
-                segment_ids = segment_ids.long().to(self.device)
-
-                valid_length = valid_length
-                label = label.long().to(self.device)
-                out = classifier_model(token_ids, valid_length, segment_ids)
+                # 모델 실행
+                out = feedback_classifier(feedback_token, feedback_valid, feedback_segment)
 
                 for index in out:
                     logits = index
-                    logits = logits.detach().cpu().numpy()
+                    feedback_logits = logits.detach().cpu().numpy()
 
-                    if np.argmax(logits) == 0:
-                        i_result.append("피드백")
-                    elif np.argmax(logits) == 1:
-                        i_result.append("컨텐츠 요구")
+                    # 예측 결과가 0일 경우 피드백으로 간주하고 여기서 다시 긍부정 분류함
+                    if np.argmax(feedback_logits) == 0:
+
+                        # 모델에 들어갈 데이터
+                        data = [i, '0']
+                        dataset_goodbad = [data]
+                        goodbad_test = BERTDataset(dataset_goodbad, 0, 1, self.tok, self.vocab, self.max_len, True, False)
+                        goodbad_dataloader = torch.utils.data.DataLoader(goodbad_test, batch_size=self.batch_size, num_workers=5)
+                        goodbad_classifier.eval()
+
+                        
+                        for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(goodbad_dataloader):
+                            
+                            # 모델 파라미터
+                            goodbad_token = token_ids.long().to(self.device)
+                            goodbad_segment = segment_ids.long().to(self.device)
+                            goodbad_valid = valid_length
+                            goodbad_label = label.long().to(self.device)
+                            
+                            # 모델 실행
+                            out_goodbad = goodbad_classifier(goodbad_token, goodbad_valid, goodbad_segment)
+
+                            for index in out_goodbad:
+                                logits = index
+                                goodbad_logits = logits.detach().cpu().numpy()
+                                if np.argmax(goodbad_logits) == 0:
+                                    print("부정")
+                                    i_result.append("bad_feedback")
+                                elif np.argmax(goodbad_logits) == 1:
+                                    print("긍정")
+                                    i_result.append("good_feedback")
+
+                    elif np.argmax(feedback_logits) == 1:
+                        print("콘텐츠")
+                        i_result.append("contents")
 
             predict_data.append(i_result)
 
@@ -185,17 +221,22 @@ class BERTClassifier(nn.Module):
 
 
 # 객체 생성
-etl = review_etl()
+etl = review_etl() # 데이터 전처리
+kobert = kobert_classification() # kobert 모델
 
-# 분석할 데이터 제작
-input_comments = etl.extract(["Mh-ip0PxJK0"]) 
-input_data = etl.transform(data=input_comments)
+# 데이터 수집
+target_youtube_comments = etl.extract(["ibydOspB5y0"])
 
-# kobert 모델 예측하고 데이터로 저장
-kobert = kobert_feedback()
-predict_data = kobert.predict(input_data)
+# 데이터 변환
+input_data = etl.transform(data=target_youtube_comments)
+
+# 변환된 데이터 예측
+predict = kobert.predict(input_data)
 
 # 예측이 되고 나면 예측결과를 기존의 수집 정보 (작성자 닉네임, 좋아요 수 등)에 추가
-contents_or_feedback = pd.DataFrame(input_comments, columns=['textDisplay', 'textOriginal', 'authorDisplayName', 'publishedAt', 'likeCount', 'authorProfileImageUrl'])
-contents_or_feedback['contents_or_feedback'] = [a[1] for a in predict_data]
-contents_or_feedback.to_csv('./predict1.csv')
+predict_df = pd.DataFrame(target_youtube_comments, columns=['textDisplay', 'textOriginal', 'authorDisplayName', 'publishedAt', 'likeCount', 'authorProfileImageUrl'])
+predict_df['predict'] = [a[1] for a in predict]
+
+predict_df.to_csv("./predict.csv")
+
+

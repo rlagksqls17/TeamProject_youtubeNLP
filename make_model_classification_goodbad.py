@@ -134,7 +134,7 @@ max_grad_norm = 1
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv("/피드백라벨링.csv")
+raw_df = pd.read_csv("./goodbad_labeling.csv")
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)
@@ -192,4 +192,4 @@ for e in range(num_epochs):
     
 
 # saving the model
-torch.save(model, './feedback_classifier')
+torch.save(model, './goodbad_classifier')

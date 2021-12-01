@@ -93,10 +93,8 @@ def preprocess_train_dataset(raw_dataframe):
     for line in raw_df_list:
         comment = line[0]
         label = line[1]
-        
         # 한글만 추출 (외국어, 특수문자, 이모티콘, 문장부호, 숫자 제거)
         only_korean = only_hangle(comment)
-
         # 한글 자모 제거 (ex. ㅋㅋ, ㅠㅠ 등)
         pattern = re.compile("[ㄱ-ㅎ]")
         without_letters = pattern.sub("", only_korean)
@@ -134,7 +132,7 @@ max_grad_norm = 1
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv("./goodbad_labeling.csv")
+raw_df = pd.read_csv("./goodbad_labeling_mod.csv")
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)
@@ -192,4 +190,4 @@ for e in range(num_epochs):
     
 
 # saving the model
-torch.save(model, './goodbad_classifier')
+torch.save(model, './goodbad_classifier_ref')

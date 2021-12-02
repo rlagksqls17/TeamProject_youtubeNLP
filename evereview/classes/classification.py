@@ -46,11 +46,11 @@ class kobert_classification:
         
         # 컨텐츠 피드백 분류 모델, 긍부정 분류모델 불러옴
         feedback_classifier = torch.load('/datadrive/TeamProject_youtubeNLP/evereview/model/feedback_classifier')
-        goodbad_classifier = torch.load('/datadrive/TeamProject_youtubeNLP/evereview/model/goodbad_classifier')
+        goodbad_classifier = torch.load('/datadrive/TeamProject_youtubeNLP/evereview/model/goodbad_classifier_ref')
 
         for idx, i in enumerate(input_data):
-            print(count)
             count += 1
+            print(count)
             i_result = []
             i_result.append(i)
 
@@ -102,14 +102,11 @@ class kobert_classification:
                                 logits = index
                                 goodbad_logits = logits.detach().cpu().numpy()
                                 if np.argmax(goodbad_logits) == 0:
-                                    print("부정")
                                     i_result.append("bad_feedback")
                                 elif np.argmax(goodbad_logits) == 1:
-                                    print("긍정")
                                     i_result.append("good_feedback")
 
                     elif np.argmax(feedback_logits) == 1:
-                        print("콘텐츠")
                         i_result.append("contents")
 
             predict_data.append(i_result)

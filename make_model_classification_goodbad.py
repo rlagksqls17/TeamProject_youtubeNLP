@@ -132,7 +132,7 @@ max_grad_norm = 1
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv("./goodbad_labeling_mod.csv")
+raw_df = pd.read_csv("./movie_10000.csv")
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)
@@ -143,6 +143,9 @@ dataset_train, dataset_test = train_test_split(processed, test_size=0.3, random_
 """BERT 데이터 셋으로 변환""" 
 data_train = BERTDataset(dataset_train, 0, 1, tok, vocab, max_len, True, False)
 train_dataloader = torch.utils.data.DataLoader(data_train, batch_size=batch_size, num_workers=2)
+
+data_test = BERTDataset(dataset_test, 0, 1, tok, vocab, max_len, True, False)
+test_dataloader = torch.utils.data.DataLoader(data_test, batch_size=batch_size, num_workers=2)
 
 """모델 정의"""
 model = BERTClassifier(bertmodel,  dr_rate=0.5).to(device)
@@ -187,7 +190,19 @@ for e in range(num_epochs):
     
     print("epoch {} train acc {}".format(e+1, train_acc / (batch_id+1)))
 
+    model.eval()
+    for batch_id, (token_ids, valid_length, segment_ids, label) in enumerate(tqdm_notebook(test_dataloader)):
+        token_ids = token_ids.long().to(device)
+        segment_ids = segment_ids.long().to(device)
+        valid_length = valid_length
+        label = label.long().to(device)
+        out = model(token_ids, valid_length, segment_ids)
+        test_acc += calc_accuracy(out, label)
+
+    print("epoch {} test acc {}".format(e+1, test_acc / (batch_id+1)))
+
+
     
 
 # saving the model
-torch.save(model, './goodbad_classifier_ref')
+torch.save(model, './goodbad_classifier_movie2')

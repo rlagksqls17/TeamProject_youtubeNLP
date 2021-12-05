@@ -46,8 +46,14 @@ etl = data_etl.review_etl()
 """ classification = 분류 모델 실행 함수"""
 kobert = classification.kobert_classification()
 
-"""데이터 수집: ["videoid1", "videoid2"]"""
-target_youtube_comments = etl.extract(["hr-aG521SEA"])
+
+"""
+sample data 
+
+1. 영상별 수집 : video_id=['f0ZAgF7YvlI', '8vAouplPQsc']
+2. 댓글 기간별 수집 : channel_id="UChxh4uh0d3OOeRhm-5pv6bA", day_start=20211101, day_end=20211112
+"""
+target_youtube_comments = etl.extract(video_id=['x6uch2GSnnE'])
 
 """데이터 변환 : 분류 모델에 들어갈 데이터로"""
 input_data = etl.transform(target_youtube_comments)
@@ -55,9 +61,9 @@ input_data = etl.transform(target_youtube_comments)
 """예측"""
 predict = kobert.predict(input_data)
 
-predict_df = pd.DataFrame(target_youtube_comments, columns=['textDisplay', 'textOriginal', 'authorDisplayName', 'publishedAt', 'likeCount', 'authorProfileImageUrl'])
+predict_df = pd.DataFrame(target_youtube_comments, columns=['authorDisplayName', 'authorProfileImageUrl', 'textDisplay', 'textOriginal', 'likeCount', 'publishedAt'])
 
 predict_df['predict'] = [a[1] for a in predict]
-predict_df.to_csv("/datadrive/TeamProject_youtubeNLP/evereview/result/predict1.csv")
+predict_df.to_csv("/datadrive/TeamProject_youtubeNLP/evereview/result/predict1.csv", index=False)
 
 

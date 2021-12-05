@@ -159,11 +159,3 @@ class review_etl:
             return comment_lists
 
 
-etl = review_etl()
-"""
-sample data 
-
-1. 영상별 수집 : video_id=['f0ZAgF7YvlI', '8vAouplPQsc']
-2. 댓글 기간별 수집 : channel_id="UChxh4uh0d3OOeRhm-5pv6bA", day_start=20211101, day_end=20211112
-"""
-target_youtube_comments = etl.extract(video_id=['f0ZAgF7YvlI', '8vAouplPQsc']) 

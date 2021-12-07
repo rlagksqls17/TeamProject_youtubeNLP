@@ -10,7 +10,8 @@ from kobert.pytorch_kobert import get_kobert_model
 from kobert_tokenizer import KoBERTTokenizer
 
 
-
+# KoBERT 입력 데이터로 변환 
+# KoBERT 모델의 입력으로 들어갈 수 있는 형태가 되도록 토큰화, 정수 인코딩, 패딩 등을 해주는 과정 
 class BERTDataset:
     def __init__(self, dataset, sent_idx, label_idx, bert_tokenizer, vocab, max_len, pad, pair):
         transform = nlp.data.BERTSentenceTransform(
@@ -38,7 +39,7 @@ class kobert_classification:
         self.batch_size = 64
         self.max_len = 64 
 
-
+    # 문장을 토큰화, 패딩, 텐서를 바꿔준 후 예측을 하는 predict 함수
     def predict(self, input_data):
 
         predict_data = []  # return
@@ -50,7 +51,7 @@ class kobert_classification:
 
         for idx, i in enumerate(input_data):
             count += 1
-            print(i)
+            print(f"{round((count/len(input_data)) * 100, 3)}%")
             i_result = []
             i_result.append(i)
 
@@ -103,14 +104,11 @@ class kobert_classification:
                                 logits = index
                                 goodbad_logits = logits.detach().cpu().numpy()
                                 if np.argmax(goodbad_logits) == 0:
-                                    print("bad_feedback")
                                     i_result.append("bad_feedback")
                                 elif np.argmax(goodbad_logits) == 1:
-                                    print("good_feedback")
                                     i_result.append("good_feedback")
 
                     elif np.argmax(feedback_logits) == 1:
-                        print("contents")
                         i_result.append("contents")
 
             predict_data.append(i_result)

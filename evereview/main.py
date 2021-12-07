@@ -3,6 +3,7 @@ from torch import nn
 
 from classes import data_etl
 from classes import classification
+from classes import clustering
 
 import pandas as pd
 
@@ -40,10 +41,10 @@ class BERTClassifier(nn.Module):
 
 
 
-"""data_etl = 데이터 수집 및 전처리 해주는 클래스"""
+# data_etl = 데이터 수집 및 전처리 해주는 클래스
 etl = data_etl.review_etl()
 
-""" classification = 분류 모델 실행 함수"""
+# classification = 분류 모델 실행 함수
 kobert = classification.kobert_classification()
 
 
@@ -55,15 +56,40 @@ sample data
 """
 target_youtube_comments = etl.extract(video_id=['x6uch2GSnnE'])
 
-"""데이터 변환 : 분류 모델에 들어갈 데이터로"""
+# 데이터 변환 : 분류 모델에 들어갈 데이터로
 input_data = etl.transform(target_youtube_comments)
 
-"""예측"""
+# 예측
 predict = kobert.predict(input_data)
 
+# 분류 예측 결과 df 생성
 predict_df = pd.DataFrame(target_youtube_comments, columns=['authorDisplayName', 'authorProfileImageUrl', 'textDisplay', 'textOriginal', 'likeCount', 'publishedAt'])
-
 predict_df['predict'] = [a[1] for a in predict]
-predict_df.to_csv("/datadrive/TeamProject_youtubeNLP/evereview/result/predict1.csv", index=False)
+
+# predict_df의 'textOriginal' 댓글 데이터 전처리 후 임베딩
+preprocessed_tmp = clustering.preprocess_comments(predict_df)
+embedded_tmp = clustering.embedding(preprocessed_tmp)
+
+# 임베딩된 데이터를 긍, 부정 피드백, 모든 피드백, 컨텐츠 요구 df로 나눔
+# 일부 임베드 데이터는 nan으로 표시되어 에러가 발생하고 있어 dropna() 처리 하였음
+requests_df = embedded_tmp[embedded_tmp.predict=="contents"].dropna()
+goodFeedback_df = embedded_tmp[embedded_tmp.predict=="good_feedback"].dropna()
+badFeedback_df = embedded_tmp[embedded_tmp.predict=="bad_feedback"].dropna()
+
+# 각 용도에 맞게 분류된 df를 dbscan 이용해 클러스터링
+request_dbscan = clustering.proceed_dbscan(requests_df, eps=4.75)
+goodFeedback_dbscan = clustering.proceed_dbscan(goodFeedback_df, eps=4.75)
+badFeedback_dbscan = clustering.proceed_dbscan(badFeedback_df, eps=4.75)
+
+# dbscan으로 군집화되면 이 결과는 정수로 나오는데, 정수가 하나의 군집 이름이라고 생각하면 된다.
+# 이 정수를 오름차순 정렬하여 군집화 결과를 다음 3개의 변수에 저장한다.
+request_well = request_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
+
+goodFeedback_well = goodFeedback_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
+
+badFeedback_well = badFeedback_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
 
 
+request_well.to_csv("./request_well.csv")
+goodFeedback_well.to_csv("./goodFeedback_well.csv")
+badFeedback_well.to_csv("./badFeedback_weill.csv")

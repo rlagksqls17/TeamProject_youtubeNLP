@@ -126,13 +126,13 @@ bertmodel, vocab = get_kobert_model('skt/kobert-base-v1', tokenizer.vocab_file)
 max_len = 64   # BERTDataset hyper-parameter
 batch_size = 64   # DataLoader hyper-parameter
 learning_rate = 5e-5   # optimizer hyper-parameter
-num_epochs = 5   # scheduler pre-hyper-parameter
+num_epochs = 20   # scheduler pre-hyper-parameter
 warmup_ratio = 0.1   # scheduler pre-hyper-parameter
 max_grad_norm = 1   
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv("./movie_10000.csv")
+raw_df = pd.read_csv("./goodbad_transfer_labeling3.csv")
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)
@@ -205,4 +205,4 @@ for e in range(num_epochs):
     
 
 # saving the model
-torch.save(model, './goodbad_classifier_movie2')
+torch.save(model, './comment_goodbad_classifier3')

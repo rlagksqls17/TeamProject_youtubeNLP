@@ -54,7 +54,8 @@ sample data
 1. 영상별 수집 : video_id=['f0ZAgF7YvlI', '8vAouplPQsc']
 2. 댓글 기간별 수집 : channel_id="UChxh4uh0d3OOeRhm-5pv6bA", day_start=20211101, day_end=20211112
 """
-target_youtube_comments = etl.extract(video_id=['x6uch2GSnnE'])
+target_youtube_comments = etl.extract(video_id=['t9E7Uow8g90'])
+# target_youtube_comments = etl.extract(channel_id="UCIG4gr_wIy5CIlcFciUbIQw", day_start=20211101, day_end=20211208)
 
 # 데이터 변환 : 분류 모델에 들어갈 데이터로
 input_data = etl.transform(target_youtube_comments)
@@ -65,6 +66,7 @@ predict = kobert.predict(input_data)
 # 분류 예측 결과 df 생성
 predict_df = pd.DataFrame(target_youtube_comments, columns=['authorDisplayName', 'authorProfileImageUrl', 'textDisplay', 'textOriginal', 'likeCount', 'publishedAt'])
 predict_df['predict'] = [a[1] for a in predict]
+predict_df.to_csv("./result/predict.csv")
 
 # predict_df의 'textOriginal' 댓글 데이터 전처리 후 임베딩
 preprocessed_tmp = clustering.preprocess_comments(predict_df)
@@ -75,21 +77,22 @@ embedded_tmp = clustering.embedding(preprocessed_tmp)
 requests_df = embedded_tmp[embedded_tmp.predict=="contents"].dropna()
 goodFeedback_df = embedded_tmp[embedded_tmp.predict=="good_feedback"].dropna()
 badFeedback_df = embedded_tmp[embedded_tmp.predict=="bad_feedback"].dropna()
+allFeedback_df = pd.concat([goodFeedback_df, badFeedback_df])
 
 # 각 용도에 맞게 분류된 df를 dbscan 이용해 클러스터링
 request_dbscan = clustering.proceed_dbscan(requests_df, eps=4.75)
 goodFeedback_dbscan = clustering.proceed_dbscan(goodFeedback_df, eps=4.75)
 badFeedback_dbscan = clustering.proceed_dbscan(badFeedback_df, eps=4.75)
+allFeedback_dbscan = clustering.proceed_dbscan(allFeedback_df, eps=4.75)
 
 # dbscan으로 군집화되면 이 결과는 정수로 나오는데, 정수가 하나의 군집 이름이라고 생각하면 된다.
 # 이 정수를 오름차순 정렬하여 군집화 결과를 다음 3개의 변수에 저장한다.
 request_well = request_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
-
 goodFeedback_well = goodFeedback_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
-
 badFeedback_well = badFeedback_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
+allFeedback_well = allFeedback_dbscan.sort_values(by=['dbscanned'], ascending=True).iloc[:, [0, 1, 2, 3, 4, 5, -1]]
 
-
-request_well.to_csv("./request_well.csv")
-goodFeedback_well.to_csv("./goodFeedback_well.csv")
-badFeedback_well.to_csv("./badFeedback_weill.csv")
+request_well.to_csv("./result/request_well.csv")
+goodFeedback_well.to_csv("./result/goodFeedback_well.csv")
+badFeedback_well.to_csv("./result/badFeedback_well.csv")
+allFeedback_well.to_csv("./result/allFeedback_well.csv")

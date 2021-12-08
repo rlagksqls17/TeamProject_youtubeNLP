@@ -108,8 +108,14 @@ class review_etl:
             for res in response_playlists['items']:
                 all_video_id.append(res['contentDetails']['videoId'])
 
+
+            break_count = 0
             # 이 반복 코드는 영상별 수집 코드와 동일합니다.
             for video_id in all_video_id:
+                if break_count == 49:
+                    break
+                break_count+=1
+                print(f"{video_id} 댓글 수집중...")
                 response = api_obj.commentThreads().list(part='snippet,replies', videoId=video_id, maxResults=100).execute() 
 
                 while response:
@@ -141,20 +147,22 @@ class review_etl:
         else: raise ValueError("올바른 매개변수를 입력해주세요")
 
 
-    def transform(self, data=None):
+    def transform(self, data=None, test=0):
         """
         <parameter>
         - data : 변환을 수행할 데이터
             default : 파라미터 미 지정 시 None으로 지정
-            data : [[comment, label], [comment, label], ...[comment, label]] 형식으로 input 되어야 함   
+            data : [[comment, col1, col2, ...], [comment, col1, col2, ...]] 형식으로 input 되어야 함   
         """
         if data == None:
             raise ValueError("변환시킬 데이터를 넣어주세요. ex: transform(use_case, data)")
-        
+
         else:
             comment_lists = []
             for comment in data:
-                comment_lists.append(comment[3])
+                if test == 1:
+                    comment_lists.append(comment[0])
+                else : comment_lists.append(comment[3])
 
             return comment_lists
 

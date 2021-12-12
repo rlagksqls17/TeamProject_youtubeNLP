@@ -134,7 +134,7 @@ max_grad_norm = 1
 log_interval = 200
 
 """데이터 로드"""
-raw_df = pd.read_csv("./feedbackre_labeling.csv")
+raw_df = pd.read_csv("./fr_classification_df.csv")
 
 """데이터 전처리"""
 processed = preprocess_train_dataset(raw_df)

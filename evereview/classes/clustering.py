@@ -64,10 +64,9 @@ def embedding(preprocessed_data):
     
     # 모든 댓글 임베딩을 완료하면
     # embeddings 리스트를 시리즈로 바꾸고 입력 df에 새 컬럼으로 추가  
-    embedded = pd.Series(embeddings_list, name='embedded')
-    result = pd.concat([preprocessed_data, embedded], axis=1)
+    preprocessed_data['embedded'] = embeddings_list
 
-    return result
+    return preprocessed_data
 
 
 """

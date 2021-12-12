@@ -54,7 +54,7 @@ sample data
 1. 영상별 수집 : video_id=['f0ZAgF7YvlI', '8vAouplPQsc']
 2. 댓글 기간별 수집 : channel_id="UChxh4uh0d3OOeRhm-5pv6bA", day_start=20211101, day_end=20211112
 """
-target_youtube_comments = etl.extract(video_id=['t9E7Uow8g90'])
+target_youtube_comments = etl.extract(video_id=['_EX71hJsN2c'])
 # target_youtube_comments = etl.extract(channel_id="UCIG4gr_wIy5CIlcFciUbIQw", day_start=20211101, day_end=20211208)
 
 # 데이터 변환 : 분류 모델에 들어갈 데이터로

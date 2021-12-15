@@ -26,7 +26,7 @@
 
 
 
-**ai_class/evereview**
+### **ai_class/evereview**
 
 => ./classes/classification.py (분류를 진행하기 위한 코드)
 

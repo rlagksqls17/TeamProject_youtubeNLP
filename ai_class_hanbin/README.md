@@ -8,7 +8,7 @@
 
 
 
-**./setting_aiPython_env_linux.md ** => 인공지능 환경 구축을 위해 정리한 파일  
+**./setting_aiPython_env_linux.md** => 인공지능 환경 구축을 위해 정리한 파일  
 
 
 

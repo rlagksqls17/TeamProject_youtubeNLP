@@ -10,6 +10,9 @@
 ## 인공지능 사용 기술 및 작성된 클래스 요약   
 [해당 링크 접속하기](https://bit.ly/3IbUKDE)  
 
+---  
+
+## 파일 구성 요약
 
 **./setting_aiPython_env_linux.md** => 인공지능 환경 구축을 위해 정리한 파일  
 

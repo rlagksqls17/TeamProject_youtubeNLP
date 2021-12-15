@@ -81,14 +81,9 @@
 
 
 
-#### 현재까지 사용한 기술 및 라이브러리는?
+#### 현재까지 사용한 기술 및 라이브러리는?  
 
-| 프론트엔드 | react    typeScript    axios    node-sass     react-unicons    react-google-login     react-datepicker    moment            react-slick    react-router-dom    react-redux  reduxjs/toolkit    redux-persist    recharts    classnames |
-| ---------- | ------------------------------------------------------------ |
-| 백엔드     | flask     flask-restx    flask-cors  flask-jwt-extended     oauth2.0    jwt                                              mysql   flask-migrate |
-| 인공지능   | cuda     cudnn     torch     sklearn     numpy   gluonnlp    soynlp    pandas     regex    transformers        KoBERT |
-
-
+![Imgur](https://imgur.com/wgYa0uJ.jpg)  
 
 ## 참고 자료
 
@@ -96,11 +91,6 @@
 
 
 
-## 팀원 역할 분담
+## 팀원 역할 분담  
 
-| 김한빈 | 팀원 업무 분담                                                                                                                                                          데이터 수집 코드 작성                                                                                                       작성된 인공지능모델 코드 클래스화, VM 테스트 실행                                                            VM 인공지능 개발환경 구축 (driver, CUDA, CUDNN) |
-| ------ | ------------------------------------------------------------ |
-| 박정윤 | 데이터 라벨링, 전처리                                                                                                                                     KoBERT 분류 모델 파인튜닝                                                                                   DBSCAN을 통한 군집화 작업 (소분류)                                                                            Tf-idf를 이용한 대표 키워드 추출 (중분류) |
-| 이선예 | 스토리보드 작성                                                                                                                프론트엔드 개발환경 구축                                                                                                 로그인 / 회원가입 페이지 구현 및 api 연동                                                                                      라이브러리를 활용한 서비스에 맞는 그래프 구현 |
-| 이성효 | 와이어프레임 제작, 메인페이지 구현                                                                            MockData 테이블 구축, 일러스트 애니메이션 구현                                                                 Nav Bar, Side Bar, Filter & Search Bar, Submit, 한영 검색 기능 구현                                  Overview 구조 구축 및 구현 |
-| 정태윤 | DB 테이블 설계                                                                                                                       API 설계 및 구현                                                                                                           google oauth2.0을 이용한 회원 가입, 로그인 기능 구현                                                    youtube data api를 이용한 사용자의 youtube 채널 정보 가져오기                            docker를 이용한 서비스 배포 |
+![Imgur](https://imgur.com/fZAJ4BM.jpg)

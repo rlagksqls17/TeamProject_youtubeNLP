@@ -1,0 +1,70 @@
+@import '../../../Pages/style/font.scss';
+@import "~react-datepicker/dist/react-datepicker.css";
+
+
+.basic-multi-select{
+    font-family: $notoSans !important;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 50vw;
+    min-width: 170px;
+    box-shadow: 4px 4px 35px -11px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+.select__control .css-1s2u09g-control{
+    width: 30vw !important;
+}
+
+.select__single-value .css-1s2u09g-control{
+    font-family: $notoSans !important;
+    font-size: 10px !important;    
+    font-weight: 700;
+}
+.commentSearchWrap{
+    width: 39vw;
+    height: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-left: 9px;
+    margin-right: 9px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: hsl(0, 0%, 80%);
+    box-shadow: 4px 4px 35px -11px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    background-color: white;
+}
+
+.commentSearchBar{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin: 5px 8px 2px 8px;
+    font-family: $notoSans !important;
+    font-size: 16px !important;    
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.datePick1{
+    appearance: none;
+    font-family: $notoSans !important;
+    border-width: 0px;
+    background-color: transparent;
+    font-family: $notoSans !important;
+    font-size: 16px !important;    
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.datePick2{
+    appearance: none;
+    font-family: $notoSans !important;
+    border-width: 0px;
+    background-color: transparent;
+    font-family: $notoSans !important;
+    font-size: 16px !important;    
+    font-weight: 700;
+    cursor: pointer;
+}

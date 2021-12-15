@@ -1,0 +1,58 @@
+{
+  "data" : [
+    {
+    "feedback" : 1,
+    "commentN" : "마이크가 너무 커요",
+    "like" : 952,
+    "dislike" : 645
+    },
+    {
+    "feedback" : 2,
+    "commentN" : "키보드 소리 줄여주세요",
+    "like" : 723,
+    "dislike" : 651
+    },
+    {
+    "feedback" : 3,
+    "commentN" : "먹방 찍어주세요",
+    "like" : 702,
+    "dislike" : 601
+    },
+    {
+    "feedback" : 4,
+    "commentN" : "영화 리뷰 해주세요",
+    "like" : 535,
+    "dislike" : 526
+    },
+    {
+    "feedback" : 5,
+    "commentN" : "마이크가 작은거같아요",
+    "like" : 421,
+    "dislike" : 346
+    },
+    {
+    "feedback" : 6,
+    "commentN" : "한강 가주세요",
+    "like" : 357,
+    "dislike" : 216
+    },
+    {
+    "feedback" : 7,
+    "commentN" : "치킨 먹어주세요",
+    "like" : 251,
+    "dislike" : 126
+    },
+    {
+    "feedback" : 8,
+    "commentN" : "영화 추천 해주세요",
+    "like" : 127,
+    "dislike" : 106
+    },
+    {
+    "feedback" : 9,
+    "commentN" : "아이폰 써주세요",
+    "like" : 84,
+    "dislike" : 66
+    }
+  ]
+}

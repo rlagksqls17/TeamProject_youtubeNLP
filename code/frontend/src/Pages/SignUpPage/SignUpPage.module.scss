@@ -1,0 +1,50 @@
+@import '../style/font.scss'; 
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+
+  .leftImg {
+    margin-top: 6vh;
+    width: 26vw;
+    height: 50vh;
+  }
+}
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  .title {
+    font-family: $subLogo;
+    font-size: 100px;
+    margin-top: 18vh;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  p {
+    margin: 7vh 0 7vh 0;
+    width: 30vw;
+    text-align: left;
+  }
+
+  .btn {
+    border: 1px solid black;
+  }
+}

@@ -1,0 +1,111 @@
+@import "../../../style/font.scss";
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-family: $notoSans;
+
+  .title {
+    font-family: $subLogo;
+    font-size: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8vh;
+    .pencilLogo {
+      margin-top: 20px;
+      margin-right: 10px;
+      transform: scaleX(-1);
+    }
+  }
+
+  .stepContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 5vh 0 0 0;
+    font-weight: bold;
+    .nowStepBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #6157ff;
+      background-color: #6157ff;
+      color: white;
+    }
+    .stepBox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #6157ff;
+    }
+
+    .link {
+      width: 50px;
+      height: 0.3px;
+      background-color: rgba(46, 46, 46, 0.507);
+      border: 1px solid rgba(46, 46, 46, 0.507);
+    }
+  }
+
+  .infoTitle {
+    margin-left: 0;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 60px;
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+
+    label {
+      margin-right: 170px;
+      margin-bottom: 3px;
+    }
+
+    input {
+      width: 200px;
+      height: 30px;
+      border-radius: 10px;
+      padding-left: 7px;
+    }
+  }
+
+  .btn {
+    font-size: 16px;
+    margin-top: 5vh;
+    height: 50px;
+    padding: 0 13px;
+    background-color: #6157ff;
+    border: 1px solid #6157ff;
+    border-radius: 12px;
+    color: white;
+  }
+
+  .btn:disabled {
+    cursor: default;
+    border: 1px solid #f3f3f39b;
+    background-color: #7c73ff9b;
+  }
+}

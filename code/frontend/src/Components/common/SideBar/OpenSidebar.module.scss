@@ -1,0 +1,92 @@
+@import "../../../Pages/style/font.scss";
+
+@keyframes inAnimation {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+a {
+  font-family: $notoSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+.openSideBar {
+  position: absolute;
+  text-align: center;
+  left: 100px;
+  top:0px;
+  width: 160px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.87);
+  transition: all 0.5s ease-in-out;
+  -webkit-user-select:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none;
+  z-index: 3;
+}
+
+.closeSideBar {
+  position: absolute;
+  text-align: center;
+  left: -100px;
+  top:0px;
+  width: 0px;
+  height: 100vh;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  -webkit-user-select:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none
+}
+
+.openDashboard {
+  margin-top: calc(max(10vh, 75px));
+  padding-top: 50px;
+  margin-bottom: 130px;
+}
+
+.openContent {
+}
+
+.openFeedback {
+  font-size: 16px !important;
+  font-weight: 700;
+}
+
+.AllFeedback {
+  margin-top: 5px;
+}
+
+.PosFeedback {
+  margin-top: 5px;
+}
+
+.NegFeedback {
+  margin-top: 5px;
+}
+
+.contentsFeedback{
+  margin-top: 5px;
+}
+
+.openProfile {
+}
+
+.openSetting {
+  margin-top: 20px;
+  margin-bottom: 130px;
+}
+
+.openNotification {
+}

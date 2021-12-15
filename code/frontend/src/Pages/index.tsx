@@ -1,0 +1,14 @@
+export { default as MainPage } from "./MainPage/MainPage";
+export { default as LoginPage } from "./LoginPage/LoginPage";
+export { default as SignUpPage } from "./SignUpPage/SignUpPage";
+export { default as NotFound } from "./NotFoundPage/NotFound";
+export { default as AboutPage } from "./AboutPage/AboutPage";
+export { default as DashBoard } from "./MyPage/DashBoardPage/DashBoard.jsx";
+export { default as Contents } from "./MyPage/ContentsPage/Contents";
+export { default as Profile } from "./MyPage/ProfilePage/Profile";
+export { default as Setting } from "./MyPage/SettingPage/Setting";
+export { default as Notification } from "./MyPage/NotificationPage/Notification";
+export { default as AllFeedBackPage } from "./DetailPage/AllFeedBackPage/AllFeedBackPage.jsx";
+export { default as PosFeedBackPage } from "./DetailPage/PosFeedBackPage/PosFeedBackPage.jsx";
+export { default as NegFeedBackPage } from "./DetailPage/NegFeedBackPage/NegFeedBackPage.jsx";
+export { ContentsFeedBackPage } from "./DetailPage/ContentsFeedBackPage";

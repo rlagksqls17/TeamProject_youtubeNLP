@@ -1,0 +1,313 @@
+@import "../../style/font.scss";
+
+.dashBoardContainer {
+  display: grid;
+  grid-template-columns: minmax(100px, 4vw) 2px 1fr;
+}
+
+.dashP {
+  margin-left: 60px;
+  font-family: $notoSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.2vw;
+}
+
+.sideLine {
+  position: relative;
+  z-index: 4;
+  width: 2px;
+  height: 90%;
+  align-self: center;
+  border-radius: 10px;
+  background-color: #cccccc67;
+}
+
+.dashBoardWrap {
+  height: 100vh;
+  margin-left: 50px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 5fr 5fr;
+  overflow: hidden;
+}
+
+.dashBoardWrapHeader {
+  display: grid;
+  grid-template-columns: 4fr 6fr 50px;
+  margin-top: 50px;
+}
+
+.dashBoardText {
+}
+
+.dashBoardSearch {
+}
+
+.dashBoardTitle {
+  font-family: $notoSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.dashBoardDescription {
+  margin-top: 10px;
+  font-family: $notoSans;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.459);
+}
+
+.dashBoardWrapMiddle {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 5fr 20px 5fr 50px;
+}
+
+.dashBoardWrapDown {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  height: 100%;
+}
+
+.dashBoardWrapDownGrid {
+  height: 90%;
+  display: grid;
+  grid-template-columns: 5fr 0.1fr 5fr;
+  background: #ffffff;
+  box-shadow: 4px 4px 35px -11px rgba(0, 0, 0, 0.25);
+  border-radius: 36px;
+}
+
+.dashBoardAllFeedback {
+  display: grid;
+  width: 100%;
+  height: 90%;
+  grid-template-columns: 4fr 6fr;
+  grid-template-rows: 2fr 8fr;
+  background: #ffffff;
+  box-shadow: 4px 4px 35px -11px rgba(0, 0, 0, 0.25);
+  border-radius: 36px;
+}
+
+.dashBoardAllFeedback:hover {
+  transform: translate(-3px, -3px);
+}
+
+.dashBoardUserNeeds {
+  display: grid;
+  width: 100%;
+  height: 90%;
+  grid-template-columns: 4fr 6fr;
+  grid-template-rows: 3fr 7fr;
+  background: #ffffff;
+  box-shadow: 4px 4px 35px -11px rgba(0, 0, 0, 0.25);
+  border-radius: 36px;
+}
+
+.dashBoardPosFeedback {
+  display: grid;
+  height: 90%;
+  grid-template-columns: 4fr 6fr;
+  grid-template-rows: 2fr 8fr;
+}
+
+.dashBoardNegFeedback {
+  display: grid;
+  height: 90%;
+  grid-template-columns: 4fr 6fr;
+  grid-template-rows: 2fr 8fr;
+}
+
+.dashBoardWrapDownBlank {
+}
+
+.BlankLine {
+  width: 3px;
+  height: 85%;
+  margin: 0 auto;
+  margin-top: 1em;
+  border-radius: 30px;
+  background-color: #00000015;
+}
+
+.allBarGraph {
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.pieGraph {
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+div.recharts-wrapper {
+  height: 100% !important;
+  max-height: 250px !important;
+}
+
+.allBarChart {
+  width: 100%;
+  height: 100%;
+  font-size: 0.7vw;
+  place-self: center;
+  text-align: center;
+  th {
+    text-align: left;
+    padding-left: 10px;
+    font-weight: 500;
+  }
+}
+
+.pieGraph {
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.negBarGraph {
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 250px !important;
+}
+
+.posBarGraph {
+  background-color: transparent;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 250px !important;
+}
+
+.recharts-responsive-container {
+  margin: 0 !important;
+}
+
+.squareWrap {
+  margin-top: 10px;
+}
+
+.allSquareLike {
+  display: inline-block;
+  width: 0.7vw;
+  height: 0.7vw;
+  background-color: #2dda91;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 36px;
+}
+
+.allSquareComment {
+  display: inline-block;
+  width: 0.7vw;
+  height: 0.7vw;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #009c5b;
+  border-radius: 36px;
+}
+
+.allSquareP {
+  display: inline-block;
+  font-family: $notoSans;
+  font-size: 1vw;
+  font-weight: 500;
+}
+
+.negSquareLike {
+  display: inline-block;
+  width: 0.7vw;
+  height: 0.7vw;
+  background-color: #ff6969;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 36px;
+}
+
+.negSquareComment {
+  display: inline-block;
+  width: 0.7vw;
+  height: 0.7vw;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #e11c1c;
+  border-radius: 36px;
+}
+
+.negSquareP {
+  display: inline-block;
+  font-family: $notoSans;
+  font-size: 1vw;
+  font-weight: 500;
+}
+
+.posSquareLike {
+  display: inline-block;
+  width: 0.7vw;
+  height: 0.7vw;
+  background-color: #b4b0ff;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 36px;
+}
+
+.posSquareComment {
+  display: inline-block;
+  width: 0.7vw;
+  height: 0.7vw;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #8884d8;
+  border-radius: 36px;
+}
+
+.posSquareP {
+  display: inline-block;
+  font-family: $notoSans;
+  font-size: 1vw;
+  font-weight: 500;
+}
+
+.chartWrap {
+  width: 100%;
+  height: 9%;
+  display: grid !important;
+  grid-template-columns: 2fr 6fr;
+}
+
+.chartLeft {
+  text-align: left;
+  margin-left: 75%;
+  font-family: $notoSans;
+  font-weight: 400;
+}
+
+.chartRight {
+  text-align: left;
+  font-family: $notoSans;
+  font-weight: 400;
+}
+
+.loadingPage {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.63);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  color: #0000008f;
+  display: grid;
+  place-content: center center;
+}

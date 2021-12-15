@@ -1,0 +1,49 @@
+version: "3"
+services:
+    db:
+        image: mysql:latest
+        container_name: evereview-mysql
+        ports:
+            - "3306:3306"
+        env_file:
+            - ./docker.env
+        command:
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_unicode_ci
+            - --skip-character-set-client-handshake
+            - --secure-file-priv=/app/sql_data
+        volumes:
+            - ./docker-mysql-dir:/var/lib/mysql
+            - ./backend/sql_data:/app/sql_data
+    rabbitmq:
+        image: rabbitmq:latest
+        container_name: evereview-worker
+        ports:
+            - "5672:5672"
+        env_file:
+            - ./docker.env
+    worker:
+        image: predict:latest
+        container_name: predict_worker
+        runtime: nvidia
+        env_file:
+            - ./docker.env
+        volumes:
+            - ./ai:/app
+        depends_on:
+            - db
+            - rabbitmq
+        working_dir: /app
+        command: celery -A predict_worker.app worker
+    backend:
+        build:
+            context: ./backend
+        depends_on:
+            - db
+            - rabbitmq
+        env_file:
+            - ./docker.env
+        ports:
+            - "5000:5000"
+        working_dir: /app
+        command: gunicorn evereview.app:application -b 0.0.0.0:5000 --workers=4 --threads=4 --log-level debug

@@ -1,0 +1,217 @@
+@import '../../Pages/style/font.scss'; 
+
+:outer-container {
+    --white: #fff;
+    --orange: #f36c00;
+  }
+  
+  
+  body {
+    font-family: $notoSans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  .arrowUp{
+    margin-top: 0.7vw;
+    color: #2f2f2f54;
+}
+.arrowDown{
+    margin-top: 0.7vw;
+}
+.arrowUpWrap{
+    position: absolute;
+    margin-top: -3.6vw;
+    left: 25vw;
+    display: inline-block;
+    margin-left: 20px;
+    width: 2.5vw;
+    height: 2.5vw;
+    padding: 0 !important;
+    text-align: center !important;
+    border: 1px solid #2f2f2f54;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.arrowDownWrap{
+  position: absolute;
+  margin-top: -3.6vw;
+  left: 29vw;
+  display: inline-block;
+  margin-left: 20px;
+  width: 2.5vw;
+  height: 2.5vw;
+  padding: 0 !important;
+  text-align: center !important;
+  border: 1px solid #2f2f2f54;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.mockCategory{
+  width: 28.5vw;
+  height: 20px;
+  display: grid;
+  grid-template-columns: 1.5fr 4fr 3fr 2fr;
+  background-color: #FFE4E4;;
+  border-radius: 20px;
+  padding: 0 !important;
+  padding-left: 0px !important;
+  padding-top: 1px !important;
+  text-align: center;
+  font-family: $notoSans;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+}
+  img {
+    max-width: 100%;
+  }
+  
+  .outer-container {
+    margin: 0 auto;
+    margin-top: 1.1vw;
+    width: 30vw;
+  }
+  
+  .outer-container > div {
+    flex: 1;
+    padding: 20px;
+  }
+  .carousel-wrapper{
+    padding: 0 !important;
+  }
+  
+  .outer-container .carousel-wrapper {
+    background: var(--orange);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .outer-container .carousel-wrapper p,
+  .carousel-item {
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  
+  .outer-container .content {
+    background: var(--white);
+  }
+  
+  .leading-text {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-right: 6px;
+  }
+  
+  .carousel {
+    height: 100%;
+    display: flex;
+    flex: 5;
+    align-items: center;
+    color: var(--white);
+  }
+  
+  .carousel-button {
+    display: flex;
+    align-self: center;
+    padding: 10px;
+    max-width: 50px;
+    border-radius: 30px;
+    background: var(--orange);
+    border: 2px solid var(--white);
+  }
+  
+  .carousel-button svg {
+    height: 26px;
+    width: 26px;
+  }
+  .carousel-button path {
+    fill: var(--white);
+  }
+  
+  .slides {
+    align-self: flex-start;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-inner {
+    position: relative;
+    max-height: 300px;
+    height: 300px;
+  }
+  
+  .carousel-inner::before,
+  .carousel-inner::after {
+    content: "";
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 110px;
+    pointer-events: none;
+  }
+  
+ 
+  
+  .carousel-inner::after {
+    bottom: 0;
+    height: 100%;
+  }
+  
+  .carousel-item {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    top: 112px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+  
+  .carousel-item.visible {
+    opacity: 1;
+  }
+  
+  .itemWrap{
+    width: 28.5vw;
+    height: 2vw;
+    display: grid;
+    grid-template-columns: 1.5fr 4fr 3fr 2fr;
+    background-color: #ffd5d5;
+    border-radius: 20px;
+    padding: 0 !important;
+    padding-left: 0px !important;
+    padding-top: 0.5vw !important;
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.9vw;
+  }
+  .itemFeedback{
+    display: inline-block;
+  }
+  .itemComment{
+    display: inline-block;
+  }
+  .itemLike{
+    display: inline-block;
+  }
+  .itemDislike{
+    display: inline-block;
+  }
+  .gradient{
+    width: 28.5vw;
+    height: 300px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.952));
+    position: relative;
+    z-index: 2;
+  }

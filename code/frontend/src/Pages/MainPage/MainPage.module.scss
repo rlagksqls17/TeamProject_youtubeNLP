@@ -1,0 +1,61 @@
+@import '../../style/font.scss';
+
+.mainContainer {
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 50px;
+  overflow: hidden;
+  background-image: url('../../img/bgpattern4.png');
+  background-position: 50% 90%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  -webkit-user-select:none; 
+  -moz-user-select:none; 
+  -ms-user-select:none; 
+  user-select:none
+
+}
+
+.leftContainer {
+  .mainDescription {
+    margin: 0 auto;
+    width: 30vw;
+    font-family: $notoSans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.55vw;
+    color: #2f2f2f;
+  }
+  .mainTitle {
+    width: 30vw;
+    font-family: $subLogo;
+    font-size: 5.2vw;
+    margin-bottom: 0;
+    margin: 0 auto;
+    margin-top: 4vw;
+  }
+  .startButton {
+    display: inline-block;
+    width: 10vw;
+    height: 1.6vw;
+    margin-top: 1vw;
+    margin-left: 11vw;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    background-color: #6157ff;
+    color: white;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 1.1vw;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+}
+
+.rightContainer {
+}

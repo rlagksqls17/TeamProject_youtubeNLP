@@ -1,0 +1,17 @@
+@import '../../../Pages/style/font.scss';
+
+.basic-single{
+    font-family: $notoSans !important;
+    font-weight: 700;
+    width: 17%;
+    min-width: 170px;
+    box-shadow: 4px 4px 35px -11px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    
+}
+
+.select__single-value .css-1s2u09g-control{
+    font-family: $notoSans !important;
+    font-size: 10px !important;    
+    font-weight: 700;
+}

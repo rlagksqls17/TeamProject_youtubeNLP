@@ -1,0 +1,36 @@
+@import '../../style/font.scss';
+
+.overviewContainer{
+    display: grid;
+    grid-template-columns: minmax(100px, 4vw) 2px 1fr;
+}
+
+
+.sideLine{
+    position: relative;
+    z-index: 4;
+    width: 2px;
+    height: 90%;
+    align-self: center;
+    border-radius: 10px;
+    background-color: #cccccc67;
+}
+
+.overViewTitle{
+    margin-top: 50px;
+    margin-left: 50px;
+    font-family: $notoSans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.overViewDescription{
+    margin-top: 10px;
+    margin-left: 50px;
+    font-family: $notoSans;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.459);
+}

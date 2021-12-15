@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@types/babel__core": "^7.1.16",
+    "build": "^0.1.4",
+    "prettier-eslint": "^13.0.0"
+  },
+  "dependencies": {
+    "eslint-config-airbnb": "^19.0.0",
+    "hangul-js": "^0.2.6"
+  }
+}

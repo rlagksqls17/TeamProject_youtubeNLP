@@ -1,0 +1,27 @@
+.searchBarContainer{
+
+}
+
+.categoryDropdown{
+    display: grid;
+    grid-template-columns: 2fr 4fr 1fr;
+}
+
+.submitButton{
+    width: 60%;
+    min-width: 75px;
+    margin: 0 auto;
+    padding-top: 5px;
+    text-align: center;
+    background-color: #474EDB;
+    color: white;
+    height: 31px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.videoSearch{
+}
+
+.commentSearch{
+}

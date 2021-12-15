@@ -1,0 +1,73 @@
+.sideBarContainer {
+  position: relative;
+  width: 4vw;
+  min-width: 100px;
+  height: 100vh;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 1fr 7fr 2fr;
+  z-index: 5;
+}
+
+.sideLogo {
+  position: relative;
+  text-align: center;
+  svg {
+    width: 45px !important;
+    height: 45px !important;
+    margin-top: 25px;
+    color: #6563ff;
+    cursor: pointer;
+  }
+}
+
+.sideIcon {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  align-items: center;
+  svg {
+    width: 30px !important;
+    height: 30px !important;
+    color: #6563ff;
+    cursor: pointer;
+  }
+}
+
+.sideProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  gap: 40px;
+  .sideUser {
+    margin-top: 30px;
+    width: 45px !important;
+    height: 45px !important;
+    color: #6563ff;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .sideLogout {
+    width: 30px !important;
+    height: 30px !important;
+    color: #6563ff;
+    cursor: pointer;
+  }
+}
+
+.openButton {
+  position: absolute;
+  min-width: 125px;
+  height: 45px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  svg {
+    margin: 0;
+    border-radius: 25px;
+    background-color: white;
+    border: 1.5px solid rgba(0, 0, 0, 0.233);
+  }
+}
